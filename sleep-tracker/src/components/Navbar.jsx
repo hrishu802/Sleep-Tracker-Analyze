@@ -27,7 +27,6 @@ const Navbar = () => {
             <span className="sleep-tracker-logo">Sleep Tracker</span>
           </Link>
 
-          {/* Desktop Menu */}
           <div className="hidden md:flex space-x-6 items-center">
             <Link to="/" className="navbar-link">Home</Link>
             
@@ -60,7 +59,6 @@ const Navbar = () => {
             )}
           </div>
 
-          {/* Mobile Menu Button */}
           <button 
             onClick={toggleMobileMenu}
             className="md:hidden text-white focus:outline-none"
@@ -75,7 +73,6 @@ const Navbar = () => {
           </button>
         </div>
 
-        {/* Mobile Menu */}
         {isMobileMenuOpen && (
           <div className="md:hidden py-4 border-t border-indigo-500 slide-in-down">
             <Link to="/" className="block py-2 hover:bg-indigo-700 px-4 rounded" onClick={toggleMobileMenu}>Home</Link>
