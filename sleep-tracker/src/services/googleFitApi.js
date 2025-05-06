@@ -1,19 +1,10 @@
-/**
- * Google Fit API Service
- * Documentation: https://developers.google.com/fit/scenarios/read-sleep-data
- * Note: Google Fit APIs will be deprecated in 2026
- */
-
-// Constants
 const GOOGLE_AUTH_URL = 'https://accounts.google.com/o/oauth2/v2/auth';
 const GOOGLE_TOKEN_URL = 'https://oauth2.googleapis.com/token';
 const GOOGLE_FIT_API_BASE_URL = 'https://www.googleapis.com/fitness/v1/users/me';
 
-// Set up your Google Fit app credentials (these should be stored in environment variables)
 const CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 const REDIRECT_URI = window.location.origin + '/sleep-tracker/#/dashboard';
 
-// Sleep stage values according to Google Fit
 export const SLEEP_STAGES = {
   1: 'Awake (during sleep cycle)',
   2: 'Sleep',
@@ -23,9 +14,6 @@ export const SLEEP_STAGES = {
   6: 'REM'
 };
 
-/**
- * Initiate Google OAuth flow
- */
 export const authorizeGoogleFit = () => {
   const scopes = [
     'https://www.googleapis.com/auth/fitness.sleep.read',
@@ -36,16 +24,9 @@ export const authorizeGoogleFit = () => {
   window.location.href = authUrl;
 };
 
-/**
- * Exchange authorization code for access token
- * (Note: This would typically happen on your backend for security)
- */
 export const getAccessToken = async (code) => {
-  // In a real implementation, this request should be made from your backend
-  // Frontend should not have access to your client secret
   alert('In a production app, token exchange would happen on the backend server.');
   
-  // Simulate successful token response for demo purposes
   return {
     access_token: 'simulated_token',
     refresh_token: 'simulated_refresh_token',
@@ -53,9 +34,6 @@ export const getAccessToken = async (code) => {
   };
 };
 
-/**
- * Get sleep sessions for a date range
- */
 export const getSleepSessions = async (startTimeMillis, endTimeMillis, accessToken) => {
   try {
     const response = await fetch(
@@ -78,9 +56,6 @@ export const getSleepSessions = async (startTimeMillis, endTimeMillis, accessTok
   }
 };
 
-/**
- * Get detailed sleep stage data for a session
- */
 export const getSleepStageData = async (startTimeMillis, endTimeMillis, accessToken) => {
   try {
     const response = await fetch(`${GOOGLE_FIT_API_BASE_URL}/dataset:aggregate`, {
@@ -109,9 +84,6 @@ export const getSleepStageData = async (startTimeMillis, endTimeMillis, accessTo
   }
 };
 
-/**
- * Process and normalize sleep data from Google Fit
- */
 export const processGoogleFitSleepData = (sessions, stageData) => {
   if (!sessions || !sessions.session || sessions.session.length === 0) {
     return [];
@@ -133,9 +105,6 @@ export const processGoogleFitSleepData = (sessions, stageData) => {
   });
 };
 
-/**
- * Helper function to extract sleep stages from dataset points
- */
 const extractSleepStages = (points, sessionStartMillis, sessionEndMillis) => {
   if (!points || points.length === 0) {
     return [];
@@ -156,4 +125,4 @@ const extractSleepStages = (points, sessionStartMillis, sessionEndMillis) => {
         duration: Math.floor(parseInt(point.endTimeNanos) - parseInt(point.startTimeNanos)) / 1000000
       };
     });
-}; 
+};

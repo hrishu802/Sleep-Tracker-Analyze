@@ -28,7 +28,6 @@ export const startAuth = (provider) => {
       googleFitApi.authorizeGoogleFit();
       break;
     case PROVIDERS.APPLE_HEALTH:
-      // No direct auth flow for Apple Health - data comes from iOS app
       alert('Apple HealthKit requires a companion iOS app to share data with this web app.');
       break;
     default:

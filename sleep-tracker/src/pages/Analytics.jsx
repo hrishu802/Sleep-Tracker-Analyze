@@ -9,11 +9,9 @@ const Analytics = () => {
   const { currentUser } = useAuth();
 
   useEffect(() => {
-    // Load sleep data
     const fetchData = () => {
       setLoading(true);
       try {
-        // Get data from localStorage
         const storedData = localStorage.getItem('sleepTrackerData');
         if (storedData) {
           const parsedData = JSON.parse(storedData);
@@ -29,7 +27,6 @@ const Analytics = () => {
     fetchData();
   }, []);
 
-  // Chart type options
   const chartTypes = [
     { id: 'duration', name: 'Sleep Duration' },
     { id: 'quality', name: 'Sleep Quality' },
@@ -52,7 +49,6 @@ const Analytics = () => {
         </div>
       ) : (
         <>
-          {/* Chart Type Selection */}
           <div className="mb-6">
             <div className="flex flex-wrap gap-2">
               {chartTypes.map((type) => (
@@ -71,7 +67,6 @@ const Analytics = () => {
             </div>
           </div>
 
-          {/* Main Chart */}
           <div className="card-hover p-6 mb-8">
             {sleepData.length > 0 ? (
               <SleepChart sleepData={sleepData} chartType={activeChart} />
@@ -83,7 +78,6 @@ const Analytics = () => {
             )}
           </div>
 
-          {/* Future Enhancement: Additional analytics sections can be added here */}
           <div className="card-hover p-6">
             <h2 className="text-xl font-semibold text-gray-800 mb-4">Sleep Insights</h2>
             <p className="text-gray-700">

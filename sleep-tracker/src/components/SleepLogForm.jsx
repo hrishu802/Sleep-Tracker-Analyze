@@ -31,12 +31,10 @@ const SleepLogForm = ({ onSubmit, initialValues = null }) => {
     const sleepDateTime = new Date(`${formData.date}T${formData.sleepTime}`);
     let wakeDateTime = new Date(`${formData.date}T${formData.wakeTime}`);
     
-    // If wake time is earlier than sleep time, assume it's the next day
     if (wakeDateTime < sleepDateTime) {
       wakeDateTime.setDate(wakeDateTime.getDate() + 1);
     }
 
-    // Calculate duration
     const duration = calculateSleepDuration(sleepDateTime, wakeDateTime);
     
     if (duration <= 0 || duration > 24) {
