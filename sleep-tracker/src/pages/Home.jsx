@@ -7,7 +7,6 @@ const Home = () => {
 
   return (
     <div>
-      {/* Hero Section */}
       <section className="bg-gradient-to-r from-indigo-800 to-purple-900 text-white py-16 md:py-24">
         <div className="container mx-auto px-4 flex flex-col items-center text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-6">
@@ -43,7 +42,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Features Section */}
       <section className="py-16 md:py-24 bg-gray-900">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-white">
@@ -78,7 +76,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* How It Works Section */}
       <section className="py-16 md:py-24 bg-gray-800">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-white">
@@ -113,7 +110,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
       <section className="bg-indigo-900 text-white py-16">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">

@@ -2,7 +2,6 @@ import { createHashRouter, RouterProvider, Outlet } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import Navbar from './components/Navbar';
 
-// Import pages
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -12,9 +11,6 @@ import Analytics from './pages/Analytics';
 import Tips from './pages/Tips';
 import Profile from './pages/Profile';
 
-// Import styles - note that the CSS is actually imported in index.js
-
-// Layout component
 const Layout = () => {
   return (
     <div className="min-h-screen bg-gray-900 text-white">
@@ -31,7 +27,6 @@ const Layout = () => {
   );
 };
 
-// Create router with routes
 const router = createHashRouter([
   {
     path: "/",

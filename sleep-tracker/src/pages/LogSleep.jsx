@@ -11,7 +11,6 @@ const LogSleep = () => {
   const [initialValues, setInitialValues] = useState(null);
 
   useEffect(() => {
-    // Check if we're in edit mode
     if (location.state?.editEntry) {
       setEditMode(true);
       setInitialValues(location.state.editEntry);
@@ -19,30 +18,24 @@ const LogSleep = () => {
   }, [location]);
 
   const handleSubmit = (sleepData) => {
-    // In a real app, this would send data to an API
     try {
-      // Get existing data from localStorage
       const existingData = localStorage.getItem('sleepTrackerData');
       let sleepTrackerData = existingData ? JSON.parse(existingData) : [];
       
       if (editMode) {
-        // Replace the edited entry
         sleepTrackerData = sleepTrackerData.map(entry => 
           entry.id === sleepData.id ? sleepData : entry
         );
         setMessage('Sleep log updated successfully!');
       } else {
-        // Add new entry
         sleepTrackerData.push(sleepData);
         setMessage('Sleep log saved successfully!');
       }
       
-      // Save to localStorage
       localStorage.setItem('sleepTrackerData', JSON.stringify(sleepTrackerData));
       
       setMessageType('success');
       
-      // Reset form or redirect
       setTimeout(() => {
         navigate('/dashboard');
       }, 1500);

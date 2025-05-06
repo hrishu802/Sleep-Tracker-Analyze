@@ -120,7 +120,6 @@ const Login = () => {
           </p>
         </div>
         
-        {/* Demo mode notice */}
         <div className="mt-6 p-4 bg-blue-50 rounded-md">
           <p className="text-sm text-blue-700">
             <strong>Demo mode:</strong> For testing, you can use any email and password.

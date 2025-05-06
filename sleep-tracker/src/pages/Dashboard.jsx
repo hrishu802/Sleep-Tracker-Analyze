@@ -18,35 +18,28 @@ const Dashboard = () => {
   const { currentUser } = useAuth();
 
   useEffect(() => {
-    // In a real app, fetch data from API or localStorage
     const fetchData = () => {
       setLoading(true);
       try {
-        // Get user sleep goal from settings
         const userSettings = JSON.parse(localStorage.getItem('sleepTrackerSettings')) || {};
         setSleepGoal(userSettings.sleepGoal || 8);
         
-        // Check if we have data in localStorage
         const storedData = localStorage.getItem('sleepTrackerData');
         if (storedData) {
           const parsedData = JSON.parse(storedData);
           setSleepData(parsedData);
           setRecommendations(generateSleepRecommendations(parsedData));
           
-          // Calculate progress towards sleep goal
           const progress = calculateSleepProgress(parsedData, userSettings.sleepGoal || 8);
           setSleepProgress(progress);
         } else {
-          // Use sample data for demo
           const sampleData = getSampleSleepData();
           setSleepData(sampleData);
           setRecommendations(generateSleepRecommendations(sampleData));
           
-          // Calculate progress with sample data
           const progress = calculateSleepProgress(sampleData, userSettings.sleepGoal || 8);
           setSleepProgress(progress);
           
-          // Save sample data to localStorage
           localStorage.setItem('sleepTrackerData', JSON.stringify(sampleData));
         }
       } catch (error) {
@@ -59,7 +52,6 @@ const Dashboard = () => {
     fetchData();
   }, []);
 
-  // Calculate averages for dashboard stats
   const calculateStats = () => {
     if (sleepData.length === 0) return { avgDuration: 0, avgQuality: 0 };
     
@@ -74,12 +66,10 @@ const Dashboard = () => {
 
   const stats = calculateStats();
   
-  // Get latest entry
   const latestEntry = sleepData.length > 0 
     ? sleepData.sort((a, b) => new Date(b.date) - new Date(a.date))[0]
     : null;
 
-  // Get recent entries (last 7 days)
   const recentEntries = sleepData.length > 0
     ? sleepData
         .sort((a, b) => new Date(b.date) - new Date(a.date))
@@ -97,7 +87,6 @@ const Dashboard = () => {
         </p>
       </div>
 
-      {/* Dashboard Tabs */}
       <div className="mb-6">
         <div className="border-b border-gray-200">
           <nav className="-mb-px flex space-x-8">
@@ -144,7 +133,6 @@ const Dashboard = () => {
         <>
           {activeTab === 'dashboard' && (
             <>
-              {/* Stats Cards */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                 <div className="stat-card slide-in-up" style={{animationDelay: '0.1s'}}>
                   <h3 className="stat-label">Average Sleep Duration</h3>
@@ -183,10 +171,8 @@ const Dashboard = () => {
                 </div>
               </div>
 
-              {/* Main Dashboard Grid */}
               <div className="dashboard-layout">
                 <div className="lg:col-span-2">
-                  {/* Sleep Chart */}
                   <div className="mb-6 card-hover slide-in-up" style={{animationDelay: '0.4s'}}>
                     <div className="flex justify-between items-center mb-4">
                       <h2 className="text-xl font-semibold text-gray-800">Sleep Duration</h2>
@@ -197,7 +183,6 @@ const Dashboard = () => {
                     <SleepChart sleepData={recentEntries} chartType="duration" />
                   </div>
                   
-                  {/* Latest Entry */}
                   <div className="mb-6 slide-in-up" style={{animationDelay: '0.5s'}}>
                     <div className="flex justify-between items-center mb-4">
                       <h2 className="text-xl font-semibold text-gray-800">Latest Sleep Log</h2>
@@ -210,7 +195,6 @@ const Dashboard = () => {
                 </div>
                 
                 <div>
-                  {/* Sleep Goal Progress */}
                   <div className="mb-6 slide-in-up" style={{animationDelay: '0.55s'}}>
                     <h2 className="text-xl font-semibold text-gray-800 mb-4">Sleep Goal Progress</h2>
                     <div className="card-hover p-4">
@@ -221,7 +205,6 @@ const Dashboard = () => {
                     </div>
                   </div>
                 
-                  {/* Sleep Recommendations */}
                   <div className="mb-6 slide-in-up" style={{animationDelay: '0.6s'}}>
                     <h2 className="text-xl font-semibold text-gray-800 mb-4">Recommendations</h2>
                     {recommendations.length > 0 ? (
@@ -241,7 +224,6 @@ const Dashboard = () => {
                     )}
                   </div>
                   
-                  {/* Sleep Tips */}
                   <div className="slide-in-up" style={{animationDelay: '0.7s'}}>
                     <h2 className="text-xl font-semibold text-gray-800 mb-4">Tips for Better Sleep</h2>
                     <TipsList category="bedtime-routine" limit={3} />
@@ -250,15 +232,15 @@ const Dashboard = () => {
               </div>
             </>
           )}
-
+          
           {activeTab === 'connected' && (
-            <div className="fade-in">
+            <div className="slide-in-up">
               <ConnectDevices />
             </div>
           )}
-
+          
           {activeTab === 'api' && (
-            <div className="fade-in">
+            <div className="slide-in-up">
               <SleepData />
             </div>
           )}

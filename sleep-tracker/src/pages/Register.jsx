@@ -26,7 +26,6 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    // Validate form
     if (formData.password !== formData.confirmPassword) {
       return setError('Passwords do not match');
     }
@@ -170,7 +169,6 @@ const Register = () => {
           </p>
         </div>
         
-        {/* Demo mode notice */}
         <div className="mt-6 p-4 bg-blue-50 rounded-md">
           <p className="text-sm text-blue-700">
             <strong>Demo mode:</strong> This will create a temporary account in your browser's local storage.
