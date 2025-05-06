@@ -1,6 +1,4 @@
-/* Page-specific styles */
 
-/* Home Page */
 .hero-section {
   @apply bg-indigo-800 text-white py-16 px-4 rounded-lg;
   background-image: linear-gradient(135deg, #3730a3 0%, #5b21b6 100%);
@@ -28,7 +26,6 @@
   @apply w-16 h-16 mx-auto mb-4 text-indigo-400;
 }
 
-/* Dashboard Page */
 .sleep-summary-section {
   @apply bg-gray-800 rounded-lg shadow-md p-6 mb-6 border border-gray-700;
 }
@@ -50,7 +47,6 @@
   @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4;
 }
 
-/* Login/Register Pages */
 .auth-page {
   @apply min-h-screen flex items-center justify-center bg-gray-900 py-12 px-4;
 }
@@ -75,7 +71,6 @@
   @apply relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-700 hover:bg-indigo-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-400 focus:ring-offset-gray-900 disabled:opacity-50;
 }
 
-/* Analytics Page */
 .analytics-header {
   @apply flex flex-col md:flex-row items-start md:items-center justify-between mb-6;
 }
@@ -108,7 +103,6 @@
   min-height: 200px;
 }
 
-/* Profile Page */
 .profile-header {
   @apply flex flex-col md:flex-row items-center gap-6 mb-8;
 }

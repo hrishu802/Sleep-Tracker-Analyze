@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-// Sleep tips data
 const TIPS_CATEGORIES = {
   'bedtime-routine': {
     name: 'Bedtime Routine',
