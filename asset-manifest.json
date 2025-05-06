@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/Sleep-Tracker-Analyze/static/css/main.af05d462.css",
+    "main.js": "/Sleep-Tracker-Analyze/static/js/main.d6f9a687.js",
+    "static/js/453.51ce02c8.chunk.js": "/Sleep-Tracker-Analyze/static/js/453.51ce02c8.chunk.js",
+    "index.html": "/Sleep-Tracker-Analyze/index.html",
+    "main.af05d462.css.map": "/Sleep-Tracker-Analyze/static/css/main.af05d462.css.map",
+    "main.d6f9a687.js.map": "/Sleep-Tracker-Analyze/static/js/main.d6f9a687.js.map",
+    "453.51ce02c8.chunk.js.map": "/Sleep-Tracker-Analyze/static/js/453.51ce02c8.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.af05d462.css",
+    "static/js/main.d6f9a687.js"
+  ]
+}
