@@ -1,0 +1,131 @@
+/* Main CSS file with global styles */
+
+/* Base styles and global resets */
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  @apply bg-gray-900 text-gray-100;
+  min-height: 100vh;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+a {
+  @apply text-indigo-400 hover:text-indigo-300 transition-colors;
+}
+
+input, select, textarea {
+  @apply w-full p-2 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400 bg-gray-800 text-gray-100;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+button {
+  @apply transition-all duration-200;
+}
+
+/* Focus styles for accessibility */
+a:focus, button:focus, input:focus, select:focus, textarea:focus {
+  @apply outline-none ring-2 ring-indigo-400 ring-opacity-50;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  @apply font-bold text-white;
+}
+
+h1 {
+  @apply text-3xl md:text-4xl;
+}
+
+h2 {
+  @apply text-2xl md:text-3xl;
+}
+
+h3 {
+  @apply text-xl md:text-2xl;
+}
+
+h4 {
+  @apply text-lg md:text-xl;
+}
+
+h5 {
+  @apply text-base md:text-lg;
+}
+
+h6 {
+  @apply text-sm md:text-base;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-800;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-600 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-500;
+}
+
+/* Custom sleep tracker styles */
+.sleep-tracker-logo {
+  @apply text-2xl font-bold text-white;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.sleep-quality-indicator {
+  width: 12px;
+  height: 12px;
+  @apply rounded-full inline-block mr-2;
+}
+
+.sleep-quality-excellent {
+  @apply bg-green-600;
+}
+
+.sleep-quality-good {
+  @apply bg-green-500;
+}
+
+.sleep-quality-average {
+  @apply bg-yellow-500;
+}
+
+.sleep-quality-poor {
+  @apply bg-orange-500;
+}
+
+.sleep-quality-bad {
+  @apply bg-red-600;
+}
+
+/* Dark mode toggle button */
+.theme-toggle {
+  @apply fixed bottom-6 right-6 z-50 p-3 rounded-full bg-indigo-600 dark:bg-indigo-500 text-white shadow-lg hover:bg-indigo-700 dark:hover:bg-indigo-600 transition-all;
+}
+
+.theme-toggle svg {
+  @apply w-5 h-5;
+}
+
+/* Professional touches */
+.glass-card {
+  @apply bg-gray-800/80 backdrop-blur-sm;
+  transition: background-color 0.3s ease, backdrop-filter 0.3s ease;
+}
+
+/* Card hover animations */
+.hover-lift {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-5px);
+  @apply shadow-lg shadow-gray-900/50;
+} 

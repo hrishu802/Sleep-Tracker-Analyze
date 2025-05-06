@@ -1,0 +1,147 @@
+/* Page-specific styles */
+
+/* Home Page */
+.hero-section {
+  @apply bg-indigo-800 text-white py-16 px-4 rounded-lg;
+  background-image: linear-gradient(135deg, #3730a3 0%, #5b21b6 100%);
+  @apply border border-indigo-700;
+}
+
+.hero-title {
+  @apply text-3xl md:text-5xl font-bold mb-4;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.hero-subtitle {
+  @apply text-xl md:text-2xl text-indigo-100 mb-8;
+}
+
+.features-grid {
+  @apply grid grid-cols-1 md:grid-cols-3 gap-8 my-12;
+}
+
+.feature-card {
+  @apply bg-gray-800 p-6 rounded-lg shadow-md text-center transition-all duration-300 hover:shadow-lg border border-gray-700;
+}
+
+.feature-icon {
+  @apply w-16 h-16 mx-auto mb-4 text-indigo-400;
+}
+
+/* Dashboard Page */
+.sleep-summary-section {
+  @apply bg-gray-800 rounded-lg shadow-md p-6 mb-6 border border-gray-700;
+}
+
+.sleep-chart-container {
+  @apply bg-gray-800 rounded-lg shadow-md p-6 mb-6 border border-gray-700;
+  min-height: 300px;
+}
+
+.sleep-chart-header {
+  @apply flex items-center justify-between mb-4;
+}
+
+.sleep-chart-title {
+  @apply text-xl font-semibold text-white;
+}
+
+.sleep-data-grid {
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4;
+}
+
+/* Login/Register Pages */
+.auth-page {
+  @apply min-h-screen flex items-center justify-center bg-gray-900 py-12 px-4;
+}
+
+.auth-card {
+  @apply max-w-md w-full space-y-8 bg-gray-800 p-8 rounded-lg shadow-md border border-gray-700;
+}
+
+.auth-title {
+  @apply mt-6 text-center text-3xl font-extrabold text-white;
+}
+
+.auth-subtitle {
+  @apply mt-2 text-center text-sm text-gray-300;
+}
+
+.auth-form {
+  @apply mt-8 space-y-6;
+}
+
+.auth-button {
+  @apply relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-700 hover:bg-indigo-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-400 focus:ring-offset-gray-900 disabled:opacity-50;
+}
+
+/* Analytics Page */
+.analytics-header {
+  @apply flex flex-col md:flex-row items-start md:items-center justify-between mb-6;
+}
+
+.analytics-filters {
+  @apply flex flex-wrap gap-3 items-center mt-4 md:mt-0;
+}
+
+.filter-pill {
+  @apply px-3 py-1 bg-gray-800 hover:bg-gray-700 rounded-full text-sm text-gray-200 cursor-pointer transition-colors;
+}
+
+.filter-pill.active {
+  @apply bg-indigo-900 text-indigo-300;
+}
+
+.data-card {
+  @apply bg-gray-800 rounded-lg shadow-md p-6 mb-6 border border-gray-700;
+}
+
+.data-card-header {
+  @apply flex items-center justify-between mb-4;
+}
+
+.data-card-title {
+  @apply text-xl font-semibold text-white;
+}
+
+.data-card-body {
+  min-height: 200px;
+}
+
+/* Profile Page */
+.profile-header {
+  @apply flex flex-col md:flex-row items-center gap-6 mb-8;
+}
+
+.profile-avatar {
+  @apply w-24 h-24 rounded-full bg-indigo-800 flex items-center justify-center text-white text-2xl font-bold;
+  box-shadow: 0 0 15px rgba(79, 70, 229, 0.4);
+}
+
+.profile-name {
+  @apply text-2xl font-bold text-white;
+}
+
+.profile-form-section {
+  @apply bg-gray-800 rounded-lg shadow-md p-6 mb-6 border border-gray-700;
+}
+
+.profile-form-title {
+  @apply text-xl font-semibold mb-4 pb-2 border-b border-gray-700 text-white;
+}
+
+.settings-section {
+  @apply grid grid-cols-1 md:grid-cols-3 gap-6 mb-6;
+}
+
+.setting-card {
+  @apply bg-gray-800 rounded-lg shadow-md p-6 border border-gray-700 transition-transform duration-200 ease-in-out hover:-translate-y-1 hover:shadow-lg hover:shadow-gray-900/50;
+}
+
+.setting-name {
+  @apply text-lg font-semibold mb-2 text-white;
+}
+
+.setting-description {
+  @apply text-gray-300 mb-4;
+} 
