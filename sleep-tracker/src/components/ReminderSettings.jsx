@@ -20,7 +20,6 @@ const ReminderSettings = () => {
   });
   const [isEditing, setIsEditing] = useState(false);
 
-  // Load reminders from localStorage on mount
   useEffect(() => {
     const savedReminders = localStorage.getItem('sleepReminders');
     if (savedReminders) {
@@ -28,7 +27,6 @@ const ReminderSettings = () => {
     }
   }, []);
 
-  // Save reminders to localStorage whenever they change
   useEffect(() => {
     localStorage.setItem('sleepReminders', JSON.stringify(reminders));
   }, [reminders]);
@@ -57,12 +55,10 @@ const ReminderSettings = () => {
     e.preventDefault();
     
     if (isEditing) {
-      // Update existing reminder
       setReminders(reminders.map(reminder => 
         reminder.id === formData.id ? formData : reminder
       ));
     } else {
-      // Add new reminder
       const newReminder = {
         ...formData,
         id: `reminder-${Date.now()}`
@@ -70,7 +66,6 @@ const ReminderSettings = () => {
       setReminders([...reminders, newReminder]);
     }
     
-    // Reset form and hide it
     resetForm();
   };
 
@@ -248,33 +243,27 @@ const ReminderSettings = () => {
                       ? 'text-indigo-600 hover:bg-indigo-50' 
                       : 'text-gray-400 hover:bg-gray-100'
                   }`}
-                  title={reminder.enabled ? 'Disable' : 'Enable'}
+                  aria-label={reminder.enabled ? 'Disable reminder' : 'Enable reminder'}
                 >
-                  {reminder.enabled ? (
-                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                  ) : (
-                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  )}
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z" />
+                  </svg>
                 </button>
                 <button
                   onClick={() => handleEdit(reminder.id)}
                   className="p-2 text-blue-600 rounded-full hover:bg-blue-50"
-                  title="Edit"
+                  aria-label="Edit reminder"
                 >
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                   </svg>
                 </button>
                 <button
                   onClick={() => handleDelete(reminder.id)}
                   className="p-2 text-red-600 rounded-full hover:bg-red-50"
-                  title="Delete"
+                  aria-label="Delete reminder"
                 >
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                   </svg>
                 </button>

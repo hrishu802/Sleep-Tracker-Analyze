@@ -14,7 +14,6 @@ import {
 import { Line, Bar } from 'react-chartjs-2';
 import { formatDuration } from '../utils/sleepUtils';
 
-// Register ChartJS components
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -32,16 +31,13 @@ const SleepChart = ({ sleepData, chartType = 'duration' }) => {
     return <div className="text-center p-6">No sleep data available</div>;
   }
 
-  // Sort data by date (ascending)
   const sortedData = [...sleepData].sort((a, b) => new Date(a.date) - new Date(b.date));
 
-  // Format dates for labels
   const labels = sortedData.map(entry => {
     const date = new Date(entry.date);
     return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
   });
 
-  // Generate datasets based on chart type
   let datasets = [];
   let options = {};
 
@@ -130,10 +126,8 @@ const SleepChart = ({ sleepData, chartType = 'duration' }) => {
       break;
 
     case 'bedtime':
-      // Extract hour values for bedtimes
       const bedtimeValues = sortedData.map(entry => {
         const date = new Date(entry.sleepTime);
-        // Convert to decimal hours for easier visualization
         return date.getHours() + (date.getMinutes() / 60);
       });
       
@@ -172,7 +166,7 @@ const SleepChart = ({ sleepData, chartType = 'duration' }) => {
         },
         scales: {
           y: {
-            reverse: true, // Earlier times at top
+            reverse: true,
             min: Math.min(18, Math.floor(Math.min(...bedtimeValues))),
             max: Math.max(24, Math.ceil(Math.max(...bedtimeValues))),
             title: {

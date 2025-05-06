@@ -135,7 +135,7 @@ const TipsList = ({ category, limit }) => {
 
   const handleCategoryChange = (cat) => {
     setActiveCategory(cat);
-    setExpandedTip(null); // Reset expanded tip when changing categories
+    setExpandedTip(null);
   };
 
   const toggleTip = (index) => {

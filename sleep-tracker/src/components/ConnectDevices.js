@@ -9,7 +9,6 @@ const ConnectDevices = () => {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    // Check for authorization code in URL (OAuth callback)
     const handleOAuthCallback = async () => {
       const urlParams = new URLSearchParams(window.location.hash.substring(window.location.hash.indexOf('?')));
       const code = urlParams.get('code');
@@ -18,23 +17,19 @@ const ConnectDevices = () => {
       if (code && state) {
         setLoading(true);
         try {
-          // The state parameter should contain the provider information
           const provider = state;
           const tokenData = await handleAuthCallback(provider, code);
           
-          // Store token data in localStorage
           localStorage.setItem(`${provider}TokenData`, JSON.stringify({
             ...tokenData,
             timestamp: Date.now()
           }));
           
-          // Update connected providers state
           setConnectedProviders(prev => ({
             ...prev,
             [provider]: true
           }));
           
-          // Clean up URL
           window.history.replaceState({}, document.title, window.location.pathname);
         } catch (err) {
           setError('Authentication failed. Please try again.');
@@ -47,7 +42,6 @@ const ConnectDevices = () => {
     
     handleOAuthCallback();
     
-    // Check which providers are already connected
     const checkConnectedProviders = () => {
       const connected = {};
       
@@ -56,7 +50,6 @@ const ConnectDevices = () => {
         if (tokenData) {
           const parsedData = JSON.parse(tokenData);
           
-          // Check if token is expired (simplified)
           const isExpired = parsedData.timestamp + (parsedData.expires_in * 1000) < Date.now();
           
           if (!isExpired || parsedData.refresh_token) {
@@ -74,12 +67,9 @@ const ConnectDevices = () => {
   const connectProvider = (provider) => {
     setError('');
     try {
-      // For OAuth providers, we'll set a state parameter with the provider name
       if (provider === PROVIDERS.FITBIT || provider === PROVIDERS.GOOGLE_FIT) {
-        // Start OAuth flow
         startAuth(provider);
       } else if (provider === PROVIDERS.APPLE_HEALTH) {
-        // For Apple Health, show instructions instead
         alert('To connect Apple Health data, you need to download our iOS app and grant it permission to read your Health data.');
       }
     } catch (err) {
@@ -112,7 +102,6 @@ const ConnectDevices = () => {
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {/* Fitbit */}
           <div className="bg-gray-700 rounded-lg p-4">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center">
@@ -143,7 +132,6 @@ const ConnectDevices = () => {
             )}
           </div>
           
-          {/* Google Fit */}
           <div className="bg-gray-700 rounded-lg p-4">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center">
@@ -176,7 +164,6 @@ const ConnectDevices = () => {
             )}
           </div>
           
-          {/* Apple Health */}
           <div className="bg-gray-700 rounded-lg p-4">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center">

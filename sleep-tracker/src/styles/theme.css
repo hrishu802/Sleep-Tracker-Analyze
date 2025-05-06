@@ -1,45 +1,35 @@
-/* Theme variables and customization */
-
 :root {
-  /* Primary colors - Dark Purple/Indigo theme */
   --primary: #6366f1;
   --primary-light: #818cf8;
   --primary-dark: #4f46e5;
   
-  /* Secondary colors */
   --secondary: #7e22ce;
   --secondary-light: #9333ea;
   --secondary-dark: #6b21a8;
   
-  /* Text colors - Dark theme */
   --text-primary: #f9fafb;
   --text-secondary: #e5e7eb;
   --text-tertiary: #9ca3af;
   
-  /* Background colors - Dark theme */
   --bg-primary: #0f172a;
   --bg-secondary: #1e293b;
   --bg-tertiary: #334155;
   --bg-card: #1e293b;
   
-  /* Status colors */
   --success: #059669;
   --warning: #d97706;
   --error: #dc2626;
   --info: #2563eb;
   
-  /* Sleep quality colors */
   --sleep-excellent: #059669;
   --sleep-good: #10b981;
   --sleep-average: #d97706;
   --sleep-poor: #db2777;
   --sleep-bad: #dc2626;
   
-  /* Border colors */
   --border-light: #334155;
   --border-dark: #475569;
   
-  /* Spacing */
   --spacing-xs: 0.25rem;
   --spacing-sm: 0.5rem;
   --spacing-md: 1rem;
@@ -47,20 +37,17 @@
   --spacing-xl: 2rem;
   --spacing-2xl: 3rem;
   
-  /* Border radius */
   --radius-sm: 0.25rem;
   --radius-md: 0.375rem;
   --radius-lg: 0.5rem;
   --radius-xl: 1rem;
   --radius-full: 9999px;
   
-  /* Shadows */
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
 }
 
-/* Custom theme classes */
 .theme-border {
   @apply border border-gray-700;
 }
@@ -81,7 +68,6 @@
   @apply bg-gray-800 hover:bg-gray-700 text-gray-200;
 }
 
-/* Dark styles for common elements */
 body {
   @apply bg-gray-900 text-white;
 }
@@ -115,7 +101,6 @@ body {
   @apply bg-green-900 border-green-800;
 }
 
-/* Sleep gradient colors */
 .sleep-gradient-green {
   background: linear-gradient(135deg, #059669 0%, #10b981 100%);
 }
@@ -136,7 +121,6 @@ body {
   background: linear-gradient(135deg, #b91c1c 0%, #ef4444 100%);
 }
 
-/* Professional dark gradient background */
 .dark-gradient {
   background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
 }
@@ -149,11 +133,10 @@ body {
   background: linear-gradient(135deg, #3730a3 0%, #6d28d9 100%);
 }
 
-/* Glowing elements for dark theme */
 .glow-border {
   box-shadow: 0 0 5px rgba(99, 102, 241, 0.5);
 }
 
 .glow-text {
   text-shadow: 0 0 5px rgba(129, 140, 248, 0.5);
-} 
+}

@@ -15,10 +15,8 @@ const Profile = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [message, setMessage] = useState({ text: '', type: '' });
 
-  // Load user data when component mounts
   useEffect(() => {
     if (currentUser) {
-      // Get user data from localStorage (in a real app, this would come from an API)
       const userData = JSON.parse(localStorage.getItem('sleepTrackerUser')) || {};
       const userSettings = JSON.parse(localStorage.getItem('sleepTrackerSettings')) || {};
       
@@ -46,7 +44,6 @@ const Profile = () => {
     e.preventDefault();
     
     try {
-      // Update user profile
       const userData = {
         name: formData.name,
         email: formData.email,
@@ -54,7 +51,6 @@ const Profile = () => {
       
       await updateProfile(userData);
       
-      // Save settings to localStorage (in a real app, this would be saved to an API)
       const userSettings = {
         sleepGoal: formData.sleepGoal,
         bedtimeReminder: formData.bedtimeReminder,
@@ -68,7 +64,6 @@ const Profile = () => {
       setMessage({ text: 'Profile updated successfully!', type: 'success' });
       setIsEditing(false);
       
-      // Clear message after 3 seconds
       setTimeout(() => {
         setMessage({ text: '', type: '' });
       }, 3000);
@@ -105,7 +100,6 @@ const Profile = () => {
       )}
       
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* User Information Section */}
         <div className="lg:col-span-2 card-hover p-6 slide-in-up" style={{animationDelay: '0.1s'}}>
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-xl font-semibold text-gray-800">User Information</h2>
@@ -166,7 +160,6 @@ const Profile = () => {
           )}
         </div>
         
-        {/* Sleep Goal Section */}
         <div className="card-hover p-6 slide-in-up" style={{animationDelay: '0.2s'}}>
           <h2 className="text-xl font-semibold text-gray-800 mb-6">Sleep Goal</h2>
           
@@ -200,13 +193,11 @@ const Profile = () => {
           </form>
         </div>
         
-        {/* Reminders Section */}
         <div className="lg:col-span-3 card-hover p-6 slide-in-up" style={{animationDelay: '0.3s'}}>
           <h2 className="text-xl font-semibold text-gray-800 mb-6">Manage Reminders</h2>
           
           <form>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Bedtime Reminder */}
               <div className="card-hover p-4 bg-gray-50">
                 <div className="flex items-center mb-4">
                   <input
@@ -235,7 +226,6 @@ const Profile = () => {
                 </div>
               </div>
               
-              {/* Wake-up Reminder */}
               <div className="card-hover p-4 bg-gray-50">
                 <div className="flex items-center mb-4">
                   <input
@@ -271,12 +261,8 @@ const Profile = () => {
                 onClick={handleSubmit}
                 className="btn-primary"
               >
-                Save Reminders
+                Save Reminder Settings
               </button>
-            </div>
-            
-            <div className="text-center mt-4 text-sm text-gray-500">
-              <p>Note: Reminders will appear as browser notifications if permission is granted.</p>
             </div>
           </form>
         </div>

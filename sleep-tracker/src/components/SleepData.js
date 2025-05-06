@@ -3,20 +3,18 @@ import { PROVIDERS, getSleepData } from '../services/sleepDataService';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 
-// Register ChartJS components
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const SleepData = () => {
   const [selectedProvider, setSelectedProvider] = useState('');
   const [dateRange, setDateRange] = useState({
-    start: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0], // 7 days ago
-    end: new Date().toISOString().split('T')[0] // today
+    start: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+    end: new Date().toISOString().split('T')[0]
   });
   const [sleepData, setSleepData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  // Get chart data for sleep stages
   const getChartData = () => {
     if (!sleepData || sleepData.length === 0) {
       return {
@@ -25,12 +23,10 @@ const SleepData = () => {
       };
     }
 
-    // Extract dates for labels
     const dates = sleepData.map(session => {
       return new Date(session.startTime).toLocaleDateString();
     });
 
-    // Calculate sleep durations by stage
     const awake = sleepData.map(session => {
       return session.stages
         .filter(stage => stage.type === 1 || stage.typeName?.toLowerCase().includes('awake'))
@@ -55,7 +51,6 @@ const SleepData = () => {
         .reduce((total, stage) => total + (stage.duration / (60 * 60 * 1000)), 0);
     });
 
-    // Calculate generic sleep (when no detailed stages are available)
     const genericSleep = sleepData.map(session => {
       const hasDetailedStages = session.stages.some(stage => 
         stage.type === 4 || stage.type === 5 || stage.type === 6 ||
@@ -104,7 +99,6 @@ const SleepData = () => {
     };
   };
 
-  // Chart options
   const chartOptions = {
     responsive: true,
     maintainAspectRatio: false,
@@ -150,7 +144,6 @@ const SleepData = () => {
     }
   };
 
-  // Fetch sleep data
   const fetchSleepData = async () => {
     if (!selectedProvider) {
       setError('Please select a provider');
@@ -161,7 +154,6 @@ const SleepData = () => {
     setLoading(true);
 
     try {
-      // Get token data from localStorage
       const tokenDataStr = localStorage.getItem(`${selectedProvider}TokenData`);
       
       if (!tokenDataStr && selectedProvider !== PROVIDERS.APPLE_HEALTH) {
@@ -193,18 +185,15 @@ const SleepData = () => {
     }
   };
 
-  // Calculate sleep stats
   const calculateStats = () => {
     if (!sleepData || sleepData.length === 0) {
       return { avgDuration: 0, avgDeep: 0, avgRem: 0 };
     }
 
-    // Calculate average total sleep duration in hours
     const totalDuration = sleepData.reduce((total, session) => {
       return total + (session.duration / (60 * 60 * 1000));
     }, 0);
     
-    // Calculate average deep sleep percentage
     const deepSleepTotal = sleepData.reduce((total, session) => {
       const deepDuration = session.stages
         .filter(stage => stage.type === 5 || stage.typeName?.toLowerCase().includes('deep'))
@@ -213,7 +202,6 @@ const SleepData = () => {
       return total + (deepDuration / session.duration) * 100;
     }, 0);
     
-    // Calculate average REM sleep percentage
     const remSleepTotal = sleepData.reduce((total, session) => {
       const remDuration = session.stages
         .filter(stage => stage.type === 6 || stage.typeName?.toLowerCase().includes('rem'))
@@ -229,7 +217,6 @@ const SleepData = () => {
     };
   };
 
-  // Check for connected providers
   useEffect(() => {
     const providers = Object.values(PROVIDERS).filter(provider => {
       return localStorage.getItem(`${provider}TokenData`) !== null;
@@ -240,7 +227,6 @@ const SleepData = () => {
     }
   }, []);
 
-  // Fetch data when provider or date range changes
   useEffect(() => {
     if (selectedProvider) {
       fetchSleepData();
@@ -249,52 +235,71 @@ const SleepData = () => {
 
   const stats = calculateStats();
 
+  const handleDateChange = (e) => {
+    setDateRange({
+      ...dateRange,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleProviderChange = (e) => {
+    setSelectedProvider(e.target.value);
+  };
+
+  const handleFetchClick = () => {
+    fetchSleepData();
+  };
+
   return (
-    <div className="bg-gray-800 rounded-lg shadow-lg p-6">
-      <h2 className="text-xl font-bold mb-4">Sleep Data Analysis</h2>
+    <div className="bg-gray-800 rounded-lg shadow-lg p-6 mb-6">
+      <h2 className="text-xl font-bold mb-4 text-white">Sleep Data from Connected Services</h2>
       
-      <div className="mb-6 grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div>
-          <label className="block text-sm font-medium text-gray-300 mb-1">Data Source</label>
+      <div className="flex flex-col md:flex-row gap-4 mb-6">
+        <div className="flex-1">
+          <label className="block text-sm font-medium text-gray-300 mb-1">Data Provider</label>
           <select
-            className="w-full bg-gray-700 border border-gray-600 rounded px-3 py-2 text-white"
             value={selectedProvider}
-            onChange={(e) => setSelectedProvider(e.target.value)}
+            onChange={handleProviderChange}
+            className="w-full p-2 bg-gray-700 border border-gray-600 rounded text-white"
           >
-            <option value="">Select a provider</option>
-            {Object.entries(PROVIDERS).map(([key, value]) => (
-              <option key={value} value={value}>
-                {key.replace('_', ' ')}
+            <option value="">Select Provider</option>
+            {Object.values(PROVIDERS).map(provider => (
+              <option key={provider} value={provider}>
+                {provider === 'fitbit' ? 'Fitbit' : 
+                 provider === 'googleFit' ? 'Google Fit' :
+                 provider === 'appleHealth' ? 'Apple Health' : provider}
               </option>
             ))}
           </select>
         </div>
         
-        <div>
+        <div className="flex-1">
           <label className="block text-sm font-medium text-gray-300 mb-1">Start Date</label>
           <input
             type="date"
-            className="w-full bg-gray-700 border border-gray-600 rounded px-3 py-2 text-white"
+            name="start"
             value={dateRange.start}
-            onChange={(e) => setDateRange({ ...dateRange, start: e.target.value })}
+            onChange={handleDateChange}
+            className="w-full p-2 bg-gray-700 border border-gray-600 rounded text-white"
           />
         </div>
         
-        <div>
+        <div className="flex-1">
           <label className="block text-sm font-medium text-gray-300 mb-1">End Date</label>
           <input
             type="date"
-            className="w-full bg-gray-700 border border-gray-600 rounded px-3 py-2 text-white"
+            name="end"
             value={dateRange.end}
-            onChange={(e) => setDateRange({ ...dateRange, end: e.target.value })}
+            onChange={handleDateChange}
+            className="w-full p-2 bg-gray-700 border border-gray-600 rounded text-white"
           />
         </div>
         
         <div className="flex items-end">
-          <button
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded"
-            onClick={fetchSleepData}
-            disabled={loading}
+          <button 
+            onClick={handleFetchClick}
+            disabled={loading || !selectedProvider}
+            className="p-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 disabled:opacity-50"
           >
             {loading ? 'Loading...' : 'Fetch Data'}
           </button>
@@ -302,85 +307,52 @@ const SleepData = () => {
       </div>
       
       {error && (
-        <div className="bg-red-900 text-white p-3 rounded mb-6">
+        <div className="bg-red-900 text-white p-3 rounded mb-4">
           {error}
         </div>
       )}
       
-      {sleepData.length > 0 && (
+      {sleepData.length > 0 ? (
         <>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-            <div className="bg-gray-700 p-4 rounded">
-              <h3 className="text-sm text-gray-400 mb-1">Average Sleep Duration</h3>
-              <p className="text-2xl font-bold">{stats.avgDuration} <span className="text-sm">hours</span></p>
+            <div className="bg-gray-700 p-4 rounded-lg">
+              <p className="text-gray-400 text-sm">Average Sleep Duration</p>
+              <p className="text-3xl font-bold text-white">{stats.avgDuration} hrs</p>
             </div>
             
-            <div className="bg-gray-700 p-4 rounded">
-              <h3 className="text-sm text-gray-400 mb-1">Average Deep Sleep</h3>
-              <p className="text-2xl font-bold">{stats.avgDeep}% <span className="text-sm">of total</span></p>
+            <div className="bg-gray-700 p-4 rounded-lg">
+              <p className="text-gray-400 text-sm">Deep Sleep</p>
+              <p className="text-3xl font-bold text-white">{stats.avgDeep}%</p>
+              <p className="text-xs text-gray-400">(recommended: 15-25%)</p>
             </div>
             
-            <div className="bg-gray-700 p-4 rounded">
-              <h3 className="text-sm text-gray-400 mb-1">Average REM Sleep</h3>
-              <p className="text-2xl font-bold">{stats.avgRem}% <span className="text-sm">of total</span></p>
+            <div className="bg-gray-700 p-4 rounded-lg">
+              <p className="text-gray-400 text-sm">REM Sleep</p>
+              <p className="text-3xl font-bold text-white">{stats.avgRem}%</p>
+              <p className="text-xs text-gray-400">(recommended: 20-25%)</p>
             </div>
           </div>
           
-          <div className="h-80 md:h-96">
+          <div className="h-96">
             <Bar data={getChartData()} options={chartOptions} />
           </div>
-          
-          <div className="mt-6">
-            <h3 className="text-lg font-medium mb-3">Sleep Sessions</h3>
-            <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-700">
-                <thead>
-                  <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Date</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Duration</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Bedtime</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Wake Time</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Source</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-700">
-                  {sleepData.map((session, index) => (
-                    <tr key={session.id || index}>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm">{new Date(session.startTime).toLocaleDateString()}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm">
-                        {(session.duration / (60 * 60 * 1000)).toFixed(1)} hours
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm">
-                        {new Date(session.startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm">
-                        {new Date(session.endTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm">
-                        {session.source}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
         </>
-      )}
-      
-      {loading && (
-        <div className="flex justify-center items-center py-10">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+      ) : loading ? (
+        <div className="flex justify-center py-12">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div>
         </div>
-      )}
-      
-      {!loading && sleepData.length === 0 && !error && (
-        <div className="text-center py-10 text-gray-400">
-          <p>No sleep data to display. Please select a provider and date range.</p>
+      ) : (
+        <div className="text-center py-12 text-gray-400">
+          <p>Select a provider and date range to view your sleep data</p>
+          {selectedProvider && (
+            <p className="mt-2 text-sm">
+              If you haven't connected your {selectedProvider} account yet, please visit the Dashboard to set up the connection.
+            </p>
+          )}
         </div>
       )}
     </div>
   );
 };
 
-export default SleepData; 
+export default SleepData;
