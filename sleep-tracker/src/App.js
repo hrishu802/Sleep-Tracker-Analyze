@@ -1,6 +1,7 @@
 import { createHashRouter, RouterProvider, Outlet } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import Navbar from './components/Navbar';
+import ThemeToggle from './components/ThemeToggle';
 
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -10,6 +11,7 @@ import LogSleep from './pages/LogSleep';
 import Analytics from './pages/Analytics';
 import Tips from './pages/Tips';
 import Profile from './pages/Profile';
+import Blog from './pages/Blog';
 
 const Layout = () => {
   return (
@@ -23,6 +25,7 @@ const Layout = () => {
           <p>© {new Date().getFullYear()} Sleep Tracker & Analyzer. All rights reserved.</p>
         </div>
       </footer>
+      <ThemeToggle />
     </div>
   );
 };
@@ -39,7 +42,8 @@ const router = createHashRouter([
       { path: "log-sleep", element: <LogSleep /> },
       { path: "analytics", element: <Analytics /> },
       { path: "tips", element: <Tips /> },
-      { path: "profile", element: <Profile /> }
+      { path: "profile", element: <Profile /> },
+      { path: "blog", element: <Blog /> }
     ]
   }
 ]);

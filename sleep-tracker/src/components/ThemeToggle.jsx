@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-const ThemeToggle = () => {
+const ThemeToggle = ({ variant = 'floating' }) => {
   const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
@@ -30,7 +30,11 @@ const ThemeToggle = () => {
 
   return (
     <button 
-      className="theme-toggle" 
+      className={
+        variant === 'floating'
+          ? 'theme-toggle'
+          : 'p-2 rounded-full bg-indigo-600 dark:bg-indigo-500 text-white hover:bg-indigo-700 dark:hover:bg-indigo-600 transition-all'
+      }
       onClick={toggleTheme}
       aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
       title={darkMode ? "Switch to light mode" : "Switch to dark mode"}

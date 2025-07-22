@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import ThemeToggle from './ThemeToggle';
 
 const Navbar = () => {
   const { currentUser, logout } = useAuth();
@@ -36,6 +37,8 @@ const Navbar = () => {
                 <Link to="/log-sleep" className="navbar-link">Log Sleep</Link>
                 <Link to="/analytics" className="navbar-link">Analytics</Link>
                 <Link to="/tips" className="navbar-link">Tips</Link>
+                <Link to="/blog" className="navbar-link">Blog</Link>
+                <ThemeToggle variant="navbar" />
                 <div className="relative group">
                   <button className="flex items-center navbar-link cursor-pointer">
                     {currentUser.name || 'Account'}
@@ -83,6 +86,7 @@ const Navbar = () => {
                 <Link to="/log-sleep" className="block py-2 hover:bg-indigo-700 px-4 rounded" onClick={toggleMobileMenu}>Log Sleep</Link>
                 <Link to="/analytics" className="block py-2 hover:bg-indigo-700 px-4 rounded" onClick={toggleMobileMenu}>Analytics</Link>
                 <Link to="/tips" className="block py-2 hover:bg-indigo-700 px-4 rounded" onClick={toggleMobileMenu}>Tips</Link>
+                <Link to="/blog" className="block py-2 hover:bg-indigo-700 px-4 rounded" onClick={toggleMobileMenu}>Blog</Link>
                 <div className="font-medium px-4 py-2">
                   {currentUser.name || 'Account'}
                 </div>
@@ -105,6 +109,9 @@ const Navbar = () => {
                 <Link to="/register" className="block py-2 hover:bg-indigo-700 px-4 rounded" onClick={toggleMobileMenu}>Sign Up</Link>
               </>
             )}
+            <div className="flex justify-end mt-4">
+              <ThemeToggle variant="navbar" />
+            </div>
           </div>
         )}
       </div>
