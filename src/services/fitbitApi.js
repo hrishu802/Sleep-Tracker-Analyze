@@ -1,5 +1,5 @@
 const FITBIT_AUTH_URL = 'https://www.fitbit.com/oauth2/authorize';
-const FITBIT_TOKEN_URL = 'https://api.fitbit.com/oauth2/token';
+// const FITBIT_TOKEN_URL = 'https://api.fitbit.com/oauth2/token';
 const FITBIT_API_BASE_URL = 'https://api.fitbit.com/1.2';
 
 const CLIENT_ID = process.env.REACT_APP_FITBIT_CLIENT_ID;

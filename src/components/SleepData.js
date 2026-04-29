@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { PROVIDERS, getSleepData } from '../services/sleepDataService';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
@@ -144,7 +144,7 @@ const SleepData = () => {
     }
   };
 
-  const fetchSleepData = async () => {
+  const fetchSleepData = useCallback(async () => {
     if (!selectedProvider) {
       setError('Please select a provider');
       return;
@@ -183,7 +183,7 @@ const SleepData = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [selectedProvider, dateRange.start, dateRange.end]);
 
   const calculateStats = () => {
     if (!sleepData || sleepData.length === 0) {
@@ -231,7 +231,7 @@ const SleepData = () => {
     if (selectedProvider) {
       fetchSleepData();
     }
-  }, [selectedProvider]);
+  }, [selectedProvider, fetchSleepData]);
 
   const stats = calculateStats();
 

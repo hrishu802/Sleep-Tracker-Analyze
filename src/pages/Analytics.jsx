@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '../context/AuthContext';
 import SleepChart from '../components/SleepChart';
 
 const Analytics = () => {
   const [sleepData, setSleepData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeChart, setActiveChart] = useState('duration');
-  const { currentUser } = useAuth();
 
   useEffect(() => {
     const fetchData = () => {

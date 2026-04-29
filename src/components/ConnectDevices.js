@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '../context/AuthContext';
 import { PROVIDERS, startAuth, handleAuthCallback } from '../services/sleepDataService';
 
 const ConnectDevices = () => {
-  const { currentUser } = useAuth();
   const [connectedProviders, setConnectedProviders] = useState({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
